@@ -1,0 +1,65 @@
+let randomnumber = Math.floor(Math.random() * 100) + 1;
+let guess = 10;
+let guesspositiv = 0;
+console.log(randomnumber);
+
+
+const input = document.getElementById("input");
+input.addEventListener("keypress", function(event){
+
+	if(event.key == "Enter") {
+		document.getElementById("check").click();	
+	}
+}
+)
+
+function guesschecker()
+{
+	guess--;
+	guessleft();
+	guesspositiv++;
+	console.log(guesspositiv);
+	
+	let Usereingabe = document.getElementById("input").value;
+
+	if(Usereingabe == randomnumber)
+	{
+		document.getElementById("gamemessage").innerHTML = "Gut geraten! Die richtige Zahl war: "+randomnumber+" Du hast es in: "+guesspositiv+" Versuchen geschafft";	
+		document.getElementById("gif").innerHTML = "<img src='https://media1.giphy.com/media/JiC9wpHt3LhMNSlNAa/giphy.gif?cid=ecf05e472tot330tw8ihmnl2w53couctpx4j4g12s7hmodi4&rid=giphy.gif&ct=g'>";
+		document.getElementById("check").disabled = true;
+	}
+	else if(Usereingabe > randomnumber)
+	{
+		document.getElementById("gamemessage").innerHTML = "Probier mal eine kleinere Zahl";
+	}
+	else
+	{
+		document.getElementById("gamemessage").innerHTML = "Porbier mal eine höhere Zahl";
+	}
+	if(guesspositiv == 10)
+	{
+		document.getElementById("gamemessage").innerHTML = "Du hast es leider zu oft probiert und leider Verloren! Die gesuchte zahl wäre"+randomnumber+"gewäsen";
+		document.getElementById("gif").innerHTML = "<img src='https://media2.giphy.com/media/cr9vIO7NsP5cY/giphy.gif?cid=ecf05e47sgbct6b238r84dthol66xj4bmn2x604ezj2k1j7g&rid=giphy.gif&ct=g'>";
+		document.getElementById("check").disabled = true;
+	}
+
+}
+function guessleft()
+{
+	document.getElementById("versucheleft").innerHTML = guess;
+}
+
+function gamereset()
+{
+	randomnumber = Math.floor(Math.random() * 100) + 1;
+	console.log(randomnumber);
+	guess = 10;
+	guesspositiv = 0;
+	document.getElementById("input").value = "";
+	document.getElementById("gamemessage").innerHTML = "";
+	document.getElementById("versucheleft").innerHTML = "";
+	document.getElementById("check").disabled = false;
+	document.getElementById("gif").innerHTML = "";
+
+	
+}
