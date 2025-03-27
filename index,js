@@ -4,14 +4,21 @@ let guesspositiv = 0;
 console.log(randomnumber);
 
 
-const input = document.getElementById("input");
-input.addEventListener("keypress", function(event){
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("input");
 
-	if(event.key == "Enter") {
-		document.getElementById("check").click();	
-	}
-}
-)
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            document.getElementById("check").click();
+        }
+    });
+
+    document.getElementById("newgame").onclick = gamereset;
+    document.getElementById("check").onclick = guesschecker;
+
+    guessleft(); // Zeigt die verbleibenden Versuche beim Start an
+});
+
 
 function guesschecker()
 {
@@ -20,7 +27,7 @@ function guesschecker()
 	guesspositiv++;
 	console.log(guesspositiv);
 	
-	let Usereingabe = document.getElementById("input").value;
+	let Usereingabe = parseInt(document.getElementById("input").value, 10);
 
 	if(Usereingabe == randomnumber)
 	{
@@ -36,7 +43,7 @@ function guesschecker()
 	{
 		document.getElementById("gamemessage").innerHTML = "Porbier mal eine höhere Zahl";
 	}
-	if(guesspositiv == 10)
+	if(guesspositiv >= 10)
 	{
 		document.getElementById("gamemessage").innerHTML = "Du hast es leider zu oft probiert und leider Verloren! Die gesuchte zahl wäre"+randomnumber+"gewäsen";
 		document.getElementById("gif").innerHTML = "<img src='https://media2.giphy.com/media/cr9vIO7NsP5cY/giphy.gif?cid=ecf05e47sgbct6b238r84dthol66xj4bmn2x604ezj2k1j7g&rid=giphy.gif&ct=g'>";
@@ -56,8 +63,9 @@ function gamereset() {
     guesspositiv = 0;
     document.getElementById("input").value = "";
     document.getElementById("gamemessage").innerHTML = "";
-    document.getElementById("versucheleft").innerHTML = guess;
-    document.getElementById("check").disabled = false;
     document.getElementById("gif").innerHTML = "";
+    document.getElementById("check").disabled = false;
+    
+    guessleft(); // Aktualisiert die Anzeige der verbleibenden Versuche
 }
-guessleft();
+
